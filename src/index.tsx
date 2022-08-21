@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
 import * as ReactDOMClient from "react-dom/client";
-
+import './assets/main.css';
 import App from "./App";
 
 const rootElement = document.getElementById("root");
