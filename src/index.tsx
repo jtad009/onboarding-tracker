@@ -10,7 +10,7 @@ if (!rootElement) throw new Error("Unknown root element");
 const root = ReactDOMClient.createRoot(rootElement);
 
 root.render(
-  <StrictMode>
+  // <StrictMode>
     <App />
-  </StrictMode>
+  // </StrictMode>
 );
