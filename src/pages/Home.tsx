@@ -20,7 +20,7 @@ const Home: FunctionComponent<HomeProps> = () => {
   const users = useHTTPGetRequest<HTTPUser[]>(routes.users, HttpRequestShape.GET,{},{reloadCondition: !localUsers} );
 
   const todos = useHTTPGetRequest<HTTPTodos[]|[]>(replaceDynamics(routes.todos, {id: userId}), HttpRequestShape.GET,{},{reloadCondition: fetchTodos} );
-//   console.log(localUsers, 'user dfnjkdfmd')
+
   useEffect(()=>{
    if(users && users.data && users.data.length> 0){
     setLocalUsers(users.data as HTTPUser[]);
@@ -30,9 +30,7 @@ const Home: FunctionComponent<HomeProps> = () => {
     if(todos && todos.data){
         setLocalTodos(todos.data as HTTPTodos[]);
         setFetchTodos(false);
-        console.log(todos,'todods');
     } 
-    console.log(todos,'todods');
    }, [todos]);
 
    useEffect(()=>{
