@@ -18,7 +18,7 @@ const Home: FunctionComponent<HomeProps> = () => {
   const [fetchTodos, setFetchTodos] = useState<boolean>(true);
   const users = useHTTPGetRequest<HTTPUser[]>(routes.users, 'Users',{},{reloadCondition: !localUsers} );
 
-  const todos = useHTTPGetRequest<HTTPTodos[]|[]>(replaceDynamics(routes.todos, {id: userId}), 'Todos',{},{reloadCondition: fetchTodos} );
+  const todos = useHTTPGetRequest<HTTPTodos[]|[]>(replaceDynamics(routes.todos, {id: userId}), 'Todos',{},{reloadCondition: userId !== undefined && fetchTodos} );
 
   useEffect(()=>{
    if(users && !users.loading){
@@ -36,7 +36,7 @@ const Home: FunctionComponent<HomeProps> = () => {
     setLocalTodos(undefined);
     setFetchTodos(true);
    }, [userId]);
-
+   
   return (
     !users.loading ? <div className="App border min-h-screen h-full w-3/6">
       <h1 className="text-4xl text-center mt-6 mb-6 font-bold">Onboarding Tracker</h1>

@@ -32,7 +32,7 @@ const UserCheckList: FunctionComponent<UserCheckListProps> = ({
       })}
     </div>
   ) : (
-    <div className="min-h-screen h-full flex items-center justify-center">
+    <div className="min-h-screen h-full flex items-center justify-center w-full">
     <Loader message={"Loading checklist..."} showLoader={false}/>
     </div>
   );
