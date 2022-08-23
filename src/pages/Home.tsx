@@ -12,7 +12,7 @@ import useHTTPGetRequest from "../hooks/use_get_request_hook";
 interface HomeProps {}
 
 const Home: FunctionComponent<HomeProps> = () => {
-  const { userId } = useParams<{ userId: string }>();
+  const { userId = '1' } = useParams<{ userId: string }>();
   const [localUsers, setLocalUsers] = useState<HTTPUser[] >();
   const [localTodos, setLocalTodos] = useState<HTTPTodos[]|[]|null >();
   const [fetchTodos, setFetchTodos] = useState<boolean>(true);
@@ -36,7 +36,7 @@ const Home: FunctionComponent<HomeProps> = () => {
     setLocalTodos(undefined);
     setFetchTodos(true);
    }, [userId]);
-   
+
   return (
     !users.loading ? <div className="App border min-h-screen h-full w-3/6">
       <h1 className="text-4xl text-center mt-6 mb-6 font-bold">Onboarding Tracker</h1>
