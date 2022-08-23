@@ -1,15 +1,22 @@
-import "./styles.css";
-//import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
-import Users from "./data/user.json";
+import { BrowserRouter, Routes, Route, } from "react-router-dom";
+import UserCheckList from "./component/Checklist/Checklist";
+import ErrorBoundary from "./component/ErrorBoundary/ErrorBoundary";
+import Home from "./pages/Home";
+import NotFoundPage from "./pages/NotFoundPage";
+
 export default function App() {
   return (
-    <div className="text-3xl font-bold underline">
-      <h1>Onboarding Tracker</h1>
-      <h2>Start editing to see some magic happen!</h2>
-
-      {Users.map((user) => (
-        <p>{user.name}</p>
-      ))}
+    <div className="flex items-center flex-col">
+      <BrowserRouter>
+      {/* <ErrorBoundary> */}
+      <Routes>
+        <Route  path="/" element={<Home/>}>
+          <Route path={`/users/:userId/*`} element={<UserCheckList/>}/>
+        </Route>
+        <Route path="*" element={<NotFoundPage/>} />
+      </Routes>
+      {/* </ErrorBoundary  > */}
+      </BrowserRouter>
     </div>
   );
 }
