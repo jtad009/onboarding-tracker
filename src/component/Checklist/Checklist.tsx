@@ -4,7 +4,7 @@ import { Checkmark, Container } from "./styled";
 import { HTTPTodos } from "../../constants/httpTypes";
 import Loader from "../loader/loader";
 interface UserCheckListProps {
-  todoItems?: HTTPTodos[];
+  todoItems?: HTTPTodos[]|null;
   loading?: boolean;
 }
 
@@ -12,11 +12,11 @@ const UserCheckList: FunctionComponent<UserCheckListProps> = ({
   todoItems,
   loading,
 }) => {
-  console.log(todoItems, 'todoItems')
-  return loading ? (
+ return !loading ? (
     <div className="flex flex-col ">
       <H4 text="Task List" cssClass=" mb-6 " />
-      {todoItems && !todoItems.length && <p className="font-semibold ">No Todos found for this user...  </p>}
+      {!todoItems && <p className="font-semibold ">No Todos found for this user...  </p>}
+      {todoItems && !todoItems.length &&  <p className="font-semibold ">No Todos found for this user...  </p>}
       {todoItems && (todoItems || [])?.map((item: HTTPTodos, idx: number) => {
         return (
           <Container key={`${item}-${idx}`} >
@@ -32,7 +32,9 @@ const UserCheckList: FunctionComponent<UserCheckListProps> = ({
       })}
     </div>
   ) : (
+    <div className="min-h-screen h-full flex items-center justify-center">
     <Loader message={"Loading checklist..."} showLoader={false}/>
+    </div>
   );
 };
 

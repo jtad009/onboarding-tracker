@@ -1,36 +1,37 @@
+import { AxiosError } from "axios";
 import {useEffect, useRef, useState} from "react";
-// import {useDispatch} from "react-redux";
+import {useDispatch} from "react-redux";
+import { Dispatch } from "redux";
 import http from "../helpers/http";
 // import { SHOW_SNACKBAR, showSnackbar} from "../../store/actions/core_action";
 import {updateQueryParams} from "../helpers/url";
 import {isTypeOf} from "../helpers/utility";
-import { HookConfig, HookResponseShape, HttpRequestShape } from "./typed";
+import { setError } from "../store/actions/errorAction";
+import { HookConfig, HookResponseShape } from "./type";
 
 
 
-const defaultErrorCallback = (error: {}, type: string, dispatch?: () => void) => {
-  // if (!error.response) {
-    // dispatch({type: SHOW_SNACKBAR, payload: {config: {
-    //   message: "Error occured",
-    //   action: {},
-    //   type: 'error',
-    //   show: true,
-    // }}});
-  // } else {
-    // dispatch(showSnackbar({
-    //   message: `Error getting ${type}: ${error.message}`,
-    //   action: {},
-    //   type: 'error',
-    //   show: true,
-    // }));
-  // }
+const defaultErrorCallback = (error: AxiosError, type: string, dispatch: (arg: (object | (() => void))) => void) => {
+  if (!error?.response) {
+    dispatch(setError({
+      title: "Error message",
+      body:`Error PERFORMING ACTION`,
+      showError: true,
+    }))
+  } else {
+    dispatch(setError({
+      title: "Error message",
+      body:`Error getting ${type}: ${error.message}`,
+      showError: true,
+    }))
+  }
 };
 
-const useHTTPGetRequest =  <T>(route: string, type: HttpRequestShape, params?: {}, config?: HookConfig<{}>) => {
+const useHTTPGetRequest =  <T>(route: string, type: string, params?: {}, config?: HookConfig<T>) => {
   const mountedRef = useRef(true);
   let c = config;
 
-  // const dispatch = useDispatch();
+  const dispatch: Dispatch<any> = useDispatch();
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   if (params) {
@@ -56,15 +57,23 @@ const useHTTPGetRequest =  <T>(route: string, type: HttpRequestShape, params?: {
           setData(response.data);
           setLoading(false);
         },
-        error => {
-          // if (!mountedRef.current) return null;
-          // errorCallBack(error, dispatch, type);
-          // setData((errorData === undefined || errorData === null) ? {} : errorData);
-          // setLoading(false);
+        (error:AxiosError) => {
+         
+          if (!mountedRef.current) return null;
+
+          
+          if(c?.errorCallBack && isTypeOf('Function', c?.errorCallBack)){
+            c?.errorCallBack(error,type, dispatch);
+            if(c.errorData){
+              setData(c?.errorData);
+            }
+            setLoading(false);
+          }
+         
         }
       );
     }
-  }, [route, type,data, c?.reloadCondition, c?.errorCallBack]);
+  }, [route, type, data, c?.reloadCondition, c?.errorCallBack, c?.errorData, c, dispatch ]);
   const result: HookResponseShape<T> = {
     loading,
     data: data as T

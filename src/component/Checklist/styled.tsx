@@ -6,7 +6,7 @@ export const Container = styled.label`
     padding-left: 35px;
     margin-bottom: 12px;
     cursor: pointer;
-    font-size: 0.8rem;
+    font-size: 0.6rem;
     line-height:1.5rem;
     -webkit-user-select: none;
     -moz-user-select: none;

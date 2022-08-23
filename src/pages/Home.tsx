@@ -7,7 +7,6 @@ import User from "../component/User/User";
 import { HTTPTodos, HTTPUser } from "../constants/httpTypes";
 import routes from "../constants/routes";
 import { replaceDynamics } from "../helpers/url";
-import {  HttpRequestShape } from "../hooks/typed";
 import useHTTPGetRequest from "../hooks/use_get_request_hook";
 
 interface HomeProps {}
@@ -15,20 +14,20 @@ interface HomeProps {}
 const Home: FunctionComponent<HomeProps> = () => {
   const { userId } = useParams<{ userId: string }>();
   const [localUsers, setLocalUsers] = useState<HTTPUser[] >();
-  const [localTodos, setLocalTodos] = useState<HTTPTodos[]|[] >();
+  const [localTodos, setLocalTodos] = useState<HTTPTodos[]|[]|null >();
   const [fetchTodos, setFetchTodos] = useState<boolean>(true);
-  const users = useHTTPGetRequest<HTTPUser[]>(routes.users, HttpRequestShape.GET,{},{reloadCondition: !localUsers} );
+  const users = useHTTPGetRequest<HTTPUser[]>(routes.users, 'Users',{},{reloadCondition: !localUsers} );
 
-  const todos = useHTTPGetRequest<HTTPTodos[]|[]>(replaceDynamics(routes.todos, {id: userId}), HttpRequestShape.GET,{},{reloadCondition: fetchTodos} );
+  const todos = useHTTPGetRequest<HTTPTodos[]|[]>(replaceDynamics(routes.todos, {id: userId}), 'Todos',{},{reloadCondition: fetchTodos} );
 
   useEffect(()=>{
-   if(users && users.data && users.data.length> 0){
-    setLocalUsers(users.data as HTTPUser[]);
+   if(users && !users.loading){
+    setLocalUsers(users.data);
    } 
   }, [users]);
   useEffect(()=>{
-    if(todos && todos.data){
-        setLocalTodos(todos.data as HTTPTodos[]);
+    if(todos && !todos.loading){
+        setLocalTodos(todos.data);
         setFetchTodos(false);
     } 
    }, [todos]);
@@ -42,7 +41,7 @@ const Home: FunctionComponent<HomeProps> = () => {
     !users.loading ? <div className="App border min-h-screen h-full w-3/6">
       <h1 className="text-4xl text-center mt-6 mb-6 font-bold">Onboarding Tracker</h1>
 
-      <div className="flex justify-between mx-9">
+      <div className={`flex ${!todos?.loading ? 'justify-between' : 'justify-evenly'} mx-9`}>
         <div>
           <H4 text="Users" cssClass="mb-6 " />
           <div>
