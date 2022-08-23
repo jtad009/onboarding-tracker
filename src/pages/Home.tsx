@@ -27,6 +27,9 @@ const Home: FunctionComponent<HomeProps> = () => {
   }, [users]);
   useEffect(()=>{
     if(todos && !todos.loading){
+      if(Array.isArray(todos.data) && !todos.data.length){
+        throw new Error("No todos found for this user. ")
+      }
         setLocalTodos(todos.data);
         setFetchTodos(false);
     } 
@@ -48,6 +51,9 @@ const Home: FunctionComponent<HomeProps> = () => {
             {users && (users.data || []).map((user: { name: string; id: number; }) => (
               <User name={user?.name} id={user?.id} key={`u-${user?.id}`} />
             ))}
+
+            <p className="mx-45 text-sm my-5 font-bold">Simulate Unavailable User</p>
+            <User name={`Test User`} id={112} key={`u-${112}`} />
           </div>
         </div>
         {userId  ? <UserCheckList todoItems={localTodos} loading={todos?.loading}/> : null}

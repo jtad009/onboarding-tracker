@@ -1,6 +1,7 @@
 {
   "name": "react-typescript",
   "version": "1.0.0",
+  "homepage": "https://jtad009.github.io",
   "description": "React and TypeScript example starter project",
   "keywords": [
     "typescript",
@@ -12,6 +13,7 @@
     "@types/node": "^18.7.8",
     "autoprefixer": "^10.4.8",
     "axios": "^0.27.2",
+    "gh-pages": "^4.0.0",
     "nodemon": "^2.0.19",
     "postcss": "^8.4.16",
     "react": "18.0.0",
@@ -42,7 +44,9 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "watch:css": "postcss src/style.css -o src/assets/main.css",
-    "dev": "yarn run watch:css && nodemon ."
+    "dev": "yarn run watch:css && nodemon .",
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build"
   },
   "browserslist": [
     ">0.2%",

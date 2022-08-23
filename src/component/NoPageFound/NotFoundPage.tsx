@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
-import PageNotFound from "../assets/no-activity.png";
-import H4 from "../component/H4/H4";
+import PageNotFound from "../../assets/no-activity.png";
+import H4 from "../../component/H4/H4";
 interface NotFoundPageProps {
   title?: string;
   subtitle?: string;
