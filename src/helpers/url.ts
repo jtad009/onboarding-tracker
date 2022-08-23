@@ -22,7 +22,7 @@ export const updateQueryParams = (data: QueryParamShape<object>): QueryParamShap
         data.route = data.route + separator + key + '=' + value;
       }
     } else {
-      data.route = '';//route.toString().replace(re, '?');
+      data.route = '';
     }
   });
   return data;

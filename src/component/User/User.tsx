@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { UserShape } from "./types";
 
 const User: FunctionComponent<UserShape> = ({ name, id }) => {
-  const { userId } = useParams<{ userId: string }>();
+  const { userId =   '1' } = useParams<{ userId: string }>();
   return (
     <Link to={`/users/${id}`}>
       <p className="bg-white p-3 mb-3 flex items-center justify-between">

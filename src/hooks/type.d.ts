@@ -1,7 +1,6 @@
-export enum HttpRequestShape {
-    GET = "GET",
-    POST = "POST",
-};
+import { AxiosError } from "axios"
+import { Dispatch } from "redux"
+
 
 export interface HookResponseShape<T>{
     data: T,
@@ -9,7 +8,7 @@ export interface HookResponseShape<T>{
 }
 
 export interface HookConfig<T>{
-    errorCallBack?: (error: {}, type: string, dispatch?: () => void) => void,
+    errorCallBack?: (error: AxiosError, type: string, dispatch: Dispatch<any>) => void,
     reloadCondition: boolean,
     errorData?: T,
     updateCondition?:boolean

@@ -28,7 +28,7 @@ const NotFoundPage: FunctionComponent<NotFoundPageProps> = ({
         </p>
 
         <Link to={goto || "/"}>
-          <button className="px-4 py-2 font-semibold text-sm bg-white text-slate-700 border border-slate-300 rounded-md shadow-sm outline outline-2 outline-offset-2 outline-pink-500 dark:bg-slate-700 dark:text-slate-200 dark:border-transparent">
+          <button className="px-4 py-2 font-semibold text-sm bg-white text-slate-700 border border-slate-300 rounded-md shadow-sm outline outline-2 outline-offset-2 outline-slate-500 dark:bg-slate-700 dark:text-slate-200 dark:border-transparent">
             {cta || "Goto Home"}
           </button>
         </Link>
