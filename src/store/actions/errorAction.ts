@@ -5,7 +5,6 @@ export function setError(error: IError) {
     type: actionTypes.ERROR_MESSAGE,
     error,
   }
-  console.log(action, 'error message');
   return (dispatch: DispatchType) => {
     dispatch(action)
   }
