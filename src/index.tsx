@@ -14,10 +14,9 @@ if (!rootElement) throw new Error("Unknown root element");
 const root = ReactDOMClient.createRoot(rootElement);
 
 root.render(
-  <Provider store={store}>
-
-  {/* // <StrictMode> */}
-    <App />
-  {/* // </StrictMode> */}
-  </Provider>
+  <StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </StrictMode>
 );

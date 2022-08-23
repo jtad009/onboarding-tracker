@@ -4,13 +4,9 @@ import errorReducer from "./reducers/errorReducer";
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 const combinedReducer = combineReducers({
-
-  errorState: errorReducer,
- 
+  errorState: errorReducer, 
 });
-// const store = createStore(combinedReducer, applyMiddleware(thunk))
 const store = createStore(combinedReducer, composeWithDevTools(
   applyMiddleware(thunk)
 ));
-// const store = createStore(combinedReducer, applyMiddleware(thunk));
 export default store;
