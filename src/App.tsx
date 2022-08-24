@@ -13,7 +13,7 @@ export default function App() {
       <Alerts/>
       <ErrorBoundary>
       <Routes>
-        <Route  path="/" element={<Home/>}>
+        <Route  path="/onboarding-tracker" element={<Home/>}>
           <Route path={`/users/:userId/*`} element={<UserCheckList/>}/>
         </Route>
         <Route path="*" element={<NotFoundPage/>} />
