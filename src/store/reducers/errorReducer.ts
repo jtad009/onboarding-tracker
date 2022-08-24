@@ -4,9 +4,11 @@ const initialState: ErrorState = {
   error: 
     {
      
-      title: "post 1",
+      title: "",
       body:
-        "Error One",
+        "",
+        showError: false,
+        type: ''
     },
 }
 
@@ -19,6 +21,8 @@ const reducer = (
         const newError: IError = {
           title: action.error.title,
           body: action.error.body,
+          showError: action.error.showError,
+          type:action.error.type
         }
         return {
           ...state,

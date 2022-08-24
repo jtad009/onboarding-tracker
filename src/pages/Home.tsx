@@ -22,13 +22,18 @@ const Home: FunctionComponent<HomeProps> = () => {
 
   useEffect(()=>{
    if(users && !users.loading){
+    if(Array.isArray(users.data) && !users.data.length){
+      // eslint-disable-next-line no-throw-literal
+      throw "No users found"
+    }
     setLocalUsers(users.data);
    } 
   }, [users]);
   useEffect(()=>{
     if(todos && !todos.loading){
       if(Array.isArray(todos.data) && !todos.data.length){
-        throw new Error("No todos found for this user. ")
+        // eslint-disable-next-line no-throw-literal
+        throw "No todos found for this user. "
       }
         setLocalTodos(todos.data);
         setFetchTodos(false);
@@ -41,22 +46,20 @@ const Home: FunctionComponent<HomeProps> = () => {
    }, [userId]);
 
   return (
-    !users.loading ? <div className="App border min-h-screen h-full w-3/6">
-      <h1 className="text-4xl text-center mt-6 mb-6 font-bold">Onboarding Tracker</h1>
+    !users.loading ? <div className="App border min-h-screen h-full lg-w-3/6">
+      <h1 className="text-4xl text-center mt-6 mb-6 font-bold p-5">Onboarding Tracker</h1>
 
       <div className={`flex ${!todos?.loading ? 'justify-between' : 'justify-evenly'} mx-9`}>
-        <div>
-          <H4 text="Users" cssClass="mb-6 " />
+      {!users.data && <p className="font-semibold ">No user found..  </p>}
+      {users.data && <div>
+        <H4 text="Users" cssClass="mb-6 " />
           <div>
             {users && (users.data || []).map((user: { name: string; id: number; }) => (
               <User name={user?.name} id={user?.id} key={`u-${user?.id}`} />
             ))}
-
-            <p className="mx-45 text-sm my-5 font-bold">Simulate Unavailable User</p>
-            <User name={`Test User`} id={112} key={`u-${112}`} />
           </div>
-        </div>
-        {userId  ? <UserCheckList todoItems={localTodos} loading={todos?.loading}/> : null}
+        </div>}
+        {users?.data && userId  ? <UserCheckList todoItems={localTodos} loading={todos?.loading}/> : null}
       </div>
     </div> : 
   
