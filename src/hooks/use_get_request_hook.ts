@@ -17,12 +17,14 @@ const defaultErrorCallback = (error: AxiosError, type: string, dispatch: (arg: (
       title: "Error message",
       body:`Error PERFORMING ACTION`,
       showError: true,
+      type: 'error'
     }))
   } else {
     dispatch(setError({
       title: "Error message",
       body:`Error getting ${type}: ${error.message}`,
       showError: true,
+      type: 'error'
     }))
   }
 };
@@ -60,8 +62,6 @@ const useHTTPGetRequest =  <T>(route: string, type: string, params?: {}, config?
         (error:AxiosError) => {
          
           if (!mountedRef.current) return null;
-
-          
           if(c?.errorCallBack && isTypeOf('Function', c?.errorCallBack)){
             c?.errorCallBack(error,type, dispatch);
             if(c.errorData){

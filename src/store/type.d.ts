@@ -1,7 +1,8 @@
 interface IError {
     title: string
     body?: string
-    showError?: boolean
+    showError?: boolean,
+    type?:string
   }
   
   type ErrorState = {
