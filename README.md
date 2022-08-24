@@ -15,6 +15,11 @@ React Typescript app
 ## Getting Started without Docker
 ### Setup
 - run `yarn` to install dependencies
+
+### Running Production  Server (Recommended)
+- Run `yarn run build` to generate assets
+- Run ` serve -s build` to start the development server
+- now access the server on your localhost and the port you provided i.e `localhost:5000 or 127.0.0.1:5000` or any available port generated after the build  
 ### Running Development Server
 - Run `yarn run start` to start the development server
 - now access the server on your localhost and the port you provided i.e `localhost:3000 or 127.0.0.1:3000`
