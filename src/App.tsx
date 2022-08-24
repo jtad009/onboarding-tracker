@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, } from "react-router-dom";
+import { Routes, Route, HashRouter, } from "react-router-dom";
 import Alerts from "./component/Alerts/Alerts";
 import UserCheckList from "./component/Checklist/Checklist";
 import ErrorBoundary from "./component/ErrorBoundary/ErrorBoundary";
@@ -9,7 +9,7 @@ import Home from "./pages/Home";
 export default function App() {
   return (
     <div className="flex items-center flex-col">
-      <BrowserRouter>
+      <HashRouter>
       <Alerts/>
       <ErrorBoundary>
       <Routes>
@@ -19,7 +19,7 @@ export default function App() {
         <Route path="*" element={<NotFoundPage/>} />
       </Routes>
       </ErrorBoundary  >
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 }
